@@ -80,12 +80,15 @@ jobs:
 
       - name: 🚀 Run FC Editorial Dispatch Pipeline
         env:
-          APPROVAL_TIMEOUT_SECONDS: ${{ (github.event.inputs.approval_timeout || 30) * 60 }}
+          INPUT_TOPIC: ${{ inputs.topic }}
+          INPUT_TIMEOUT: ${{ inputs.approval_timeout }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
-          TOPIC="${{ github.event.inputs.topic || 'hyderabad' }}"
-          echo "Running FC Dispatch for topic: $TOPIC"
+          TOPIC="${INPUT_TOPIC:-hyderabad}"
+          TIMEOUT_MINS="${INPUT_TIMEOUT:-30}"
+          export APPROVAL_TIMEOUT_SECONDS=$(( TIMEOUT_MINS * 60 ))
+          echo "Running FC Dispatch for topic: $TOPIC (Approval timeout: ${TIMEOUT_MINS}m / ${APPROVAL_TIMEOUT_SECONDS}s)"
           if [ "$TOPIC" = "global" ]; then
             python render_and_send_global.py
           else
