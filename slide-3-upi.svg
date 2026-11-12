@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1350" width="1080" height="1350">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800;900&amp;display=swap');
+      .font-sans { font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    </style>
+    <radialGradient id="upiGlow" cx="50%" cy="50%" r="55%">
+      <stop offset="0%" stop-color="#DFBF2B" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#0C0D12" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1080" height="1350" fill="#0C0D12"/>
+
+  <!-- Header Bar -->
+  <g transform="translate(80, 80)">
+    <!-- Small FC Logo Mark -->
+    <g transform="scale(0.38)">
+      <rect x="0" y="0" width="100" height="100" rx="18" fill="#DFBF2B"/>
+      <rect x="12" y="8" width="100" height="100" rx="18" fill="#8974F8"/>
+      <rect x="24" y="16" width="100" height="100" rx="18" fill="#EB3B24"/>
+      <circle cx="106" cy="36" r="12" fill="#8FA949"/>
+      <text x="74" y="80" class="font-sans" font-size="44" font-weight="900" fill="#FCEEEA" text-anchor="middle">FC</text>
+    </g>
+
+    <!-- Category Pill -->
+    <g transform="translate(70, 0)">
+      <rect width="260" height="44" rx="22" fill="#DFBF2B"/>
+      <text x="130" y="28" class="font-sans" font-size="16" font-weight="800" fill="#0C0D12" text-anchor="middle" letter-spacing="1.5">FINTECH &amp; TRADE</text>
+    </g>
+
+    <!-- Slide Index -->
+    <g transform="translate(830, 0)">
+      <rect width="90" height="44" rx="22" fill="#181A24" stroke="#2B2F40" stroke-width="1.5"/>
+      <text x="45" y="28" class="font-sans" font-size="17" font-weight="800" fill="#FCEEEA" text-anchor="middle">03 / 06</text>
+    </g>
+  </g>
+
+  <!-- Headline -->
+  <g transform="translate(80, 175)">
+    <text class="font-sans" font-size="52" font-weight="900" fill="#FCEEEA" line-height="1.15">
+      <tspan x="0" y="0">India’s UPI Expands Directly</tspan>
+      <tspan x="0" y="64">Into 3 Southeast Asian</tspan>
+      <tspan x="0" y="128" fill="#DFBF2B">Payment Networks.</tspan>
+    </text>
+  </g>
+
+  <!-- Graphic Container -->
+  <g transform="translate(80, 360)">
+    <rect width="920" height="520" rx="32" fill="#141620" stroke="#232738" stroke-width="2"/>
+    <rect width="920" height="520" rx="32" fill="url(#upiGlow)"/>
+
+    <!-- Network Connection Nodes -->
+    <path d="M 220 260 L 460 180 L 700 260 L 460 380 Z" stroke="#31374D" stroke-width="2.5" fill="none"/>
+    <line x1="220" y1="260" x2="700" y2="260" stroke="#DFBF2B" stroke-width="2" stroke-dasharray="6,6"/>
+
+    <!-- Center Hub (UPI India) -->
+    <g transform="translate(460, 260)">
+      <circle cx="0" cy="0" r="70" fill="#1B1E2C" stroke="#DFBF2B" stroke-width="3"/>
+      <circle cx="0" cy="0" r="54" fill="#DFBF2B"/>
+      <text x="0" y="12" class="font-sans" font-size="34" font-weight="900" fill="#0C0D12" text-anchor="middle">₹ UPI</text>
+    </g>
+
+    <!-- Node 1: Singapore -->
+    <g transform="translate(220, 260)">
+      <circle cx="0" cy="0" r="44" fill="#1E2233" stroke="#8974F8" stroke-width="2.5"/>
+      <text x="0" y="8" class="font-sans" font-size="20" font-weight="800" fill="#FCEEEA" text-anchor="middle">PayNow</text>
+      <text x="0" y="64" class="font-sans" font-size="14" font-weight="700" fill="#8D92A0" text-anchor="middle">SINGAPORE</text>
+    </g>
+
+    <!-- Node 2: Malaysia -->
+    <g transform="translate(460, 120)">
+      <circle cx="0" cy="0" r="44" fill="#1E2233" stroke="#EB3B24" stroke-width="2.5"/>
+      <text x="0" y="8" class="font-sans" font-size="20" font-weight="800" fill="#FCEEEA" text-anchor="middle">DuitNow</text>
+      <text x="0" y="-56" class="font-sans" font-size="14" font-weight="700" fill="#8D92A0" text-anchor="middle">MALAYSIA</text>
+    </g>
+
+    <!-- Node 3: Thailand -->
+    <g transform="translate(700, 260)">
+      <circle cx="0" cy="0" r="44" fill="#1E2233" stroke="#8FA949" stroke-width="2.5"/>
+      <text x="0" y="8" class="font-sans" font-size="20" font-weight="800" fill="#FCEEEA" text-anchor="middle">PromptPay</text>
+      <text x="0" y="64" class="font-sans" font-size="14" font-weight="700" fill="#8D92A0" text-anchor="middle">THAILAND</text>
+    </g>
+
+    <!-- Stat Badges -->
+    <g transform="translate(60, 430)">
+      <rect width="240" height="50" rx="16" fill="#1C1F2E" stroke="#31364D" stroke-width="1.5"/>
+      <text x="20" y="32" class="font-sans" font-size="16" font-weight="700" fill="#8FA949">⚡ INSTANT SETTLEMENT</text>
+    </g>
+    <g transform="translate(320, 430)">
+      <rect width="230" height="50" rx="16" fill="#1C1F2E" stroke="#31364D" stroke-width="1.5"/>
+      <text x="20" y="32" class="font-sans" font-size="16" font-weight="700" fill="#DFBF2B">▼ 65% REMITTANCE FEE</text>
+    </g>
+  </g>
+
+  <!-- News Content (3 Punchy Lines) -->
+  <g transform="translate(80, 920)">
+    <g transform="translate(0, 0)">
+      <circle cx="16" cy="22" r="10" fill="#DFBF2B"/>
+      <text x="44" y="27" class="font-sans" font-size="24" font-weight="700" fill="#FCEEEA">NPCI International executed live cross-border switches linking India’s</text>
+      <text x="44" y="60" class="font-sans" font-size="24" font-weight="700" fill="#FCEEEA">UPI system with retail banking switches in Singapore, Malaysia &amp; Thailand.</text>
+    </g>
+    <g transform="translate(0, 95)">
+      <circle cx="16" cy="22" r="10" fill="#8974F8"/>
+      <text x="44" y="27" class="font-sans" font-size="24" font-weight="700" fill="#FCEEEA">Travelers can make direct QR payments from domestic Indian bank accounts</text>
+      <text x="44" y="60" class="font-sans" font-size="24" font-weight="700" fill="#FCEEEA">without international cards or hefty foreign exchange markups.</text>
+    </g>
+    <g transform="translate(0, 190)">
+      <circle cx="16" cy="22" r="10" fill="#EB3B24"/>
+      <text x="44" y="27" class="font-sans" font-size="24" font-weight="700" fill="#FCEEEA">The move eliminates middleman banking fees, cutting outbound personal</text>
+      <text x="44" y="60" class="font-sans" font-size="24" font-weight="700" fill="#FCEEEA">remittance expenses by an estimated 65%.</text>
+    </g>
+  </g>
+
+  <!-- Footer Meta -->
+  <g transform="translate(80, 1220)">
+    <line x1="0" y1="0" x2="920" y2="0" stroke="#232738" stroke-width="1.5"/>
+    <text x="0" y="44" class="font-sans" font-size="18" font-weight="600" fill="#8D92A0">SOURCE: NPCI International / Reserve Bank of India</text>
+    <text x="920" y="44" class="font-sans" font-size="18" font-weight="700" fill="#DFBF2B" text-anchor="end">SWIPE NEXT →</text>
+  </g>
+</svg>

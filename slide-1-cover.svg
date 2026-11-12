@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1350" width="1080" height="1350">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800;900&amp;display=swap');
+      .font-sans { font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    </style>
+    <radialGradient id="bgGlow" cx="50%" cy="30%" r="60%">
+      <stop offset="0%" stop-color="#211A3A" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#0C0D12" stop-opacity="1"/>
+    </radialGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="16" stdDeviation="24" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1080" height="1350" fill="#0C0D12"/>
+  <rect width="1080" height="1350" fill="url(#bgGlow)"/>
+
+  <!-- Top Series Pill -->
+  <g transform="translate(80, 100)">
+    <rect width="360" height="48" rx="24" fill="#EB3B24"/>
+    <circle cx="28" cy="24" r="6" fill="#FCEEEA"/>
+    <text x="46" y="32" class="font-sans" font-size="18" font-weight="800" fill="#FCEEEA" letter-spacing="2">LAST 24 HOURS IN INDIA</text>
+  </g>
+
+  <!-- Date / Edition Tag -->
+  <g transform="translate(730, 100)">
+    <rect width="270" height="48" rx="24" fill="#181A24" stroke="#2B2F40" stroke-width="1.5"/>
+    <text x="135" y="31" class="font-sans" font-size="16" font-weight="700" fill="#8D92A0" text-anchor="middle" letter-spacing="1">TODAY'S BRIEFING</text>
+  </g>
+
+  <!-- Main Headline Title -->
+  <g transform="translate(80, 230)">
+    <text class="font-sans" font-size="64" font-weight="900" fill="#FCEEEA" line-height="1.15">
+      <tspan x="0" y="0">5 Major Stories</tspan>
+      <tspan x="0" y="76">Shaping India</tspan>
+      <tspan x="0" y="152" fill="#8974F8">Right Now.</tspan>
+    </text>
+  </g>
+
+  <!-- Subheadline -->
+  <g transform="translate(80, 440)">
+    <text class="font-sans" font-size="24" font-weight="500" fill="#8D92A0">
+      <tspan x="0" y="0">Your high-signal 3-minute executive brief on deep tech,</tspan>
+      <tspan x="0" y="36">infrastructure, green energy, and the digital economy.</tspan>
+    </text>
+  </g>
+
+  <!-- Central Branded Visual Box (FC Signature Motif) -->
+  <g transform="translate(80, 530)">
+    <rect width="920" height="560" rx="36" fill="#141620" stroke="#232738" stroke-width="2"/>
+    
+    <!-- Ambient Inner Glow -->
+    <circle cx="460" cy="280" r="220" fill="#8974F8" opacity="0.12"/>
+    <circle cx="520" cy="240" r="180" fill="#EB3B24" opacity="0.10"/>
+
+    <!-- Stacked Cards Brand Geometry (Exactly from logo) -->
+    <g transform="translate(180, 90)">
+      <!-- Back Card: Yellow -->
+      <rect x="0" y="0" width="220" height="220" rx="40" fill="#DFBF2B" filter="url(#cardShadow)"/>
+      <!-- Mid Card: Purple -->
+      <rect x="25" y="18" width="220" height="220" rx="40" fill="#8974F8" filter="url(#cardShadow)"/>
+      <!-- Front Card: Red-Orange -->
+      <rect x="52" y="38" width="220" height="220" rx="40" fill="#EB3B24" filter="url(#cardShadow)"/>
+      <!-- Green Accent Dot -->
+      <circle cx="230" cy="80" r="26" fill="#8FA949"/>
+      <!-- FC Logo Text -->
+      <text x="162" y="182" class="font-sans" font-size="94" font-weight="900" fill="#FCEEEA" text-anchor="middle" letter-spacing="-2">FC</text>
+    </g>
+
+    <!-- 4 Story Preview Chips -->
+    <g transform="translate(480, 95)">
+      <!-- Item 1 -->
+      <rect x="0" y="0" width="380" height="66" rx="20" fill="#1B1E2C" stroke="#2D3349" stroke-width="1.5"/>
+      <text x="24" y="40" class="font-sans" font-size="19" font-weight="700" fill="#FCEEEA">🚀 ISRO Reusable Launch Milestone</text>
+
+      <!-- Item 2 -->
+      <rect x="0" y="80" width="380" height="66" rx="20" fill="#1B1E2C" stroke="#2D3349" stroke-width="1.5"/>
+      <text x="24" y="120" class="font-sans" font-size="19" font-weight="700" fill="#FCEEEA">💳 Global UPI Expansion in ASEAN</text>
+
+      <!-- Item 3 -->
+      <rect x="0" y="160" width="380" height="66" rx="20" fill="#1B1E2C" stroke="#2D3349" stroke-width="1.5"/>
+      <text x="24" y="200" class="font-sans" font-size="19" font-weight="700" fill="#FCEEEA">⚡ 200 GW Green Energy Record</text>
+
+      <!-- Item 4 -->
+      <rect x="0" y="240" width="380" height="66" rx="20" fill="#1B1E2C" stroke="#2D3349" stroke-width="1.5"/>
+      <text x="24" y="280" class="font-sans" font-size="19" font-weight="700" fill="#FCEEEA">🚄 Bullet Train Viaduct Crosses 300km</text>
+    </g>
+  </g>
+
+  <!-- Bottom Action / Swipe Cue -->
+  <g transform="translate(80, 1140)">
+    <rect width="920" height="100" rx="30" fill="#181A24" stroke="#2D3349" stroke-width="1.5"/>
+    <text x="50" y="58" class="font-sans" font-size="22" font-weight="700" fill="#8D92A0">SWIPE TO READ STORIES</text>
+    
+    <g transform="translate(730, 22)">
+      <rect width="140" height="56" rx="28" fill="#8974F8"/>
+      <text x="70" y="36" class="font-sans" font-size="20" font-weight="800" fill="#0C0D12" text-anchor="middle">NEXT →</text>
+    </g>
+  </g>
+</svg>

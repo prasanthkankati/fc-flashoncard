@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1350" width="1080" height="1350">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800;900&amp;display=swap');
+      .font-sans { font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    </style>
+    <linearGradient id="rocketTrail" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#EB3B24" stop-opacity="0.9"/>
+      <stop offset="50%" stop-color="#DFBF2B" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#8974F8" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="techGlow" cx="50%" cy="45%" r="50%">
+      <stop offset="0%" stop-color="#8974F8" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#0C0D12" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1080" height="1350" fill="#0C0D12"/>
+
+  <!-- Header Bar -->
+  <g transform="translate(80, 80)">
+    <!-- Small FC Logo Mark -->
+    <g transform="scale(0.38)">
+      <rect x="0" y="0" width="100" height="100" rx="18" fill="#DFBF2B"/>
+      <rect x="12" y="8" width="100" height="100" rx="18" fill="#8974F8"/>
+      <rect x="24" y="16" width="100" height="100" rx="18" fill="#EB3B24"/>
+      <circle cx="106" cy="36" r="12" fill="#8FA949"/>
+      <text x="74" y="80" class="font-sans" font-size="44" font-weight="900" fill="#FCEEEA" text-anchor="middle">FC</text>
+    </g>
+
+    <!-- Category Pill -->
+    <g transform="translate(70, 0)">
+      <rect width="250" height="44" rx="22" fill="#8974F8"/>
+      <text x="125" y="28" class="font-sans" font-size="16" font-weight="800" fill="#0C0D12" text-anchor="middle" letter-spacing="1.5">SPACE &amp; DEEP TECH</text>
+    </g>
+
+    <!-- Slide Index -->
+    <g transform="translate(830, 0)">
+      <rect width="90" height="44" rx="22" fill="#181A24" stroke="#2B2F40" stroke-width="1.5"/>
+      <text x="45" y="28" class="font-sans" font-size="17" font-weight="800" fill="#FCEEEA" text-anchor="middle">02 / 06</text>
+    </g>
+  </g>
+
+  <!-- Headline -->
+  <g transform="translate(80, 175)">
+    <text class="font-sans" font-size="52" font-weight="900" fill="#FCEEEA" line-height="1.15">
+      <tspan x="0" y="0">ISRO Completes Autonomous</tspan>
+      <tspan x="0" y="64">Landing Simulation for</tspan>
+      <tspan x="0" y="128" fill="#8974F8">Reusable Launch Rocket.</tspan>
+    </text>
+  </g>
+
+  <!-- Illustration Container -->
+  <g transform="translate(80, 360)">
+    <rect width="920" height="520" rx="32" fill="#141620" stroke="#232738" stroke-width="2"/>
+    <rect width="920" height="520" rx="32" fill="url(#techGlow)"/>
+
+    <!-- Telemetry Grid Lines -->
+    <path d="M 60 100 L 860 100 M 60 200 L 860 200 M 60 300 L 860 300 M 60 400 L 860 400" stroke="#232738" stroke-width="1.2" stroke-dasharray="6,6"/>
+    <path d="M 230 40 L 230 480 M 460 40 L 460 480 M 690 40 L 690 480" stroke="#232738" stroke-width="1.2" stroke-dasharray="6,6"/>
+
+    <!-- Orbital Trajectory Curve -->
+    <path d="M 120 440 Q 380 340 500 120" stroke="#8974F8" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <path d="M 500 120 Q 620 280 780 430" stroke="#EB3B24" stroke-width="4" stroke-dasharray="8,8" fill="none"/>
+
+    <!-- Target Landing Base -->
+    <rect x="710" y="420" width="140" height="24" rx="12" fill="#23283B" stroke="#8FA949" stroke-width="2"/>
+    <circle cx="780" cy="432" r="6" fill="#8FA949"/>
+
+    <!-- Rocket Vector Body -->
+    <g transform="translate(480, 110)">
+      <!-- Thruster flame -->
+      <polygon points="20,130 5,200 20,170 35,200" fill="url(#rocketTrail)"/>
+      <!-- Rocket fuselage -->
+      <path d="M 20 0 L 34 40 L 34 130 L 6 130 L 6 40 Z" fill="#FCEEEA"/>
+      <!-- Nose cone -->
+      <path d="M 20 0 L 34 40 L 6 40 Z" fill="#EB3B24"/>
+      <!-- Fins -->
+      <polygon points="6,100 0,135 6,130" fill="#8974F8"/>
+      <polygon points="34,100 40,135 34,130" fill="#8974F8"/>
+      <!-- Window -->
+      <circle cx="20" cy="55" r="5" fill="#0C0D12"/>
+    </g>
+
+    <!-- Data Badges inside Graphic -->
+    <g transform="translate(60, 430)">
+      <rect width="220" height="50" rx="16" fill="#1C1F2E" stroke="#31364D" stroke-width="1.5"/>
+      <text x="20" y="32" class="font-sans" font-size="16" font-weight="700" fill="#DFBF2B">▲ 70% COST REDUCTION</text>
+    </g>
+    <g transform="translate(300, 430)">
+      <rect width="180" height="50" rx="16" fill="#1C1F2E" stroke="#31364D" stroke-width="1.5"/>
+      <text x="20" y="32" class="font-sans" font-size="16" font-weight="700" fill="#8FA949">● AUTONOMOUS</text>
+    </g>
+  </g>
+
+  <!-- News Content Cards (3 Punchy Lines) -->
+  <g transform="translate(80, 920)">
+    <!-- Point 1 -->
+    <g transform="translate(0, 0)">
+      <circle cx="16" cy="22" r="10" fill="#8974F8"/>
+      <text x="44" y="27" class="font-sans" font-size="24" font-weight="700" fill="#FCEEEA">ISRO achieved autonomous terminal navigation and soft-touchdown</text>
+      <text x="44" y="60" class="font-sans" font-size="24" font-weight="700" fill="#FCEEEA">simulation milestones for its next-generation recovery vehicle.</text>
+    </g>
+
+    <!-- Point 2 -->
+    <g transform="translate(0, 95)">
+      <circle cx="16" cy="22" r="10" fill="#EB3B24"/>
+      <text x="44" y="27" class="font-sans" font-size="24" font-weight="700" fill="#FCEEEA">The technology will slash satellite payload launch expenses by over 70%,</text>
+      <text x="44" y="60" class="font-sans" font-size="24" font-weight="700" fill="#FCEEEA">establishing India as a premier low-cost global commercial launcher.</text>
+    </g>
+
+    <!-- Point 3 -->
+    <g transform="translate(0, 190)">
+      <circle cx="16" cy="22" r="10" fill="#DFBF2B"/>
+      <text x="44" y="27" class="font-sans" font-size="24" font-weight="700" fill="#FCEEEA">Atmospheric runway recovery tests are slated for early next quarter</text>
+      <text x="44" y="60" class="font-sans" font-size="24" font-weight="700" fill="#FCEEEA">from the Sriharikota spaceport complex.</text>
+    </g>
+  </g>
+
+  <!-- Footer Meta -->
+  <g transform="translate(80, 1220)">
+    <line x1="0" y1="0" x2="920" y2="0" stroke="#232738" stroke-width="1.5"/>
+    <text x="0" y="44" class="font-sans" font-size="18" font-weight="600" fill="#8D92A0">SOURCE: ISRO Mission Briefing • Sriharikota</text>
+    <text x="920" y="44" class="font-sans" font-size="18" font-weight="700" fill="#8974F8" text-anchor="end">SWIPE NEXT →</text>
+  </g>
+</svg>

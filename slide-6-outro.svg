@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1350" width="1080" height="1350">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800;900&amp;display=swap');
+      .font-sans { font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    </style>
+    <radialGradient id="outroGlow" cx="50%" cy="50%" r="55%">
+      <stop offset="0%" stop-color="#8974F8" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#0C0D12" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="cardShadow6" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="16" stdDeviation="24" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1080" height="1350" fill="#0C0D12"/>
+
+  <!-- Header Bar -->
+  <g transform="translate(80, 80)">
+    <!-- Small FC Logo Mark -->
+    <g transform="scale(0.38)">
+      <rect x="0" y="0" width="100" height="100" rx="18" fill="#DFBF2B"/>
+      <rect x="12" y="8" width="100" height="100" rx="18" fill="#8974F8"/>
+      <rect x="24" y="16" width="100" height="100" rx="18" fill="#EB3B24"/>
+      <circle cx="106" cy="36" r="12" fill="#8FA949"/>
+      <text x="74" y="80" class="font-sans" font-size="44" font-weight="900" fill="#FCEEEA" text-anchor="middle">FC</text>
+    </g>
+
+    <!-- Category Pill -->
+    <g transform="translate(70, 0)">
+      <rect width="250" height="44" rx="22" fill="#8974F8"/>
+      <text x="125" y="28" class="font-sans" font-size="16" font-weight="800" fill="#0C0D12" text-anchor="middle" letter-spacing="1.5">COMMUNITY DEBATE</text>
+    </g>
+
+    <!-- Slide Index -->
+    <g transform="translate(830, 0)">
+      <rect width="90" height="44" rx="22" fill="#181A24" stroke="#2B2F40" stroke-width="1.5"/>
+      <text x="45" y="28" class="font-sans" font-size="17" font-weight="800" fill="#FCEEEA" text-anchor="middle">06 / 06</text>
+    </g>
+  </g>
+
+  <!-- Headline -->
+  <g transform="translate(80, 175)">
+    <text class="font-sans" font-size="52" font-weight="900" fill="#FCEEEA" line-height="1.15">
+      <tspan x="0" y="0">Which development will have</tspan>
+      <tspan x="0" y="64">the biggest economic impact</tspan>
+      <tspan x="0" y="128" fill="#DFBF2B">on India this decade?</tspan>
+    </text>
+  </g>
+
+  <!-- Interactive 4-Choice Cards -->
+  <g transform="translate(80, 360)">
+    <!-- Option 1 -->
+    <g transform="translate(0, 0)">
+      <rect width="920" height="96" rx="24" fill="#141620" stroke="#232738" stroke-width="1.5"/>
+      <rect x="24" y="24" width="48" height="48" rx="14" fill="#8974F8"/>
+      <text x="48" y="56" class="font-sans" font-size="22" font-weight="900" fill="#0C0D12" text-anchor="middle">1</text>
+      <text x="96" y="56" class="font-sans" font-size="24" font-weight="800" fill="#FCEEEA">🚀 ISRO Low-Cost Reusable Space Launchers</text>
+    </g>
+
+    <!-- Option 2 -->
+    <g transform="translate(0, 116)">
+      <rect width="920" height="96" rx="24" fill="#141620" stroke="#232738" stroke-width="1.5"/>
+      <rect x="24" y="24" width="48" height="48" rx="14" fill="#DFBF2B"/>
+      <text x="48" y="56" class="font-sans" font-size="22" font-weight="900" fill="#0C0D12" text-anchor="middle">2</text>
+      <text x="96" y="56" class="font-sans" font-size="24" font-weight="800" fill="#FCEEEA">💳 Frictionless Global UPI Expansion across Asia</text>
+    </g>
+
+    <!-- Option 3 -->
+    <g transform="translate(0, 232)">
+      <rect width="920" height="96" rx="24" fill="#141620" stroke="#232738" stroke-width="1.5"/>
+      <rect x="24" y="24" width="48" height="48" rx="14" fill="#8FA949"/>
+      <text x="48" y="56" class="font-sans" font-size="22" font-weight="900" fill="#0C0D12" text-anchor="middle">3</text>
+      <text x="96" y="56" class="font-sans" font-size="24" font-weight="800" fill="#FCEEEA">⚡ 200 GW Clean Grid &amp; Industrial Decarbonization</text>
+    </g>
+
+    <!-- Option 4 -->
+    <g transform="translate(0, 348)">
+      <rect width="920" height="96" rx="24" fill="#141620" stroke="#232738" stroke-width="1.5"/>
+      <rect x="24" y="24" width="48" height="48" rx="14" fill="#EB3B24"/>
+      <text x="48" y="56" class="font-sans" font-size="22" font-weight="900" fill="#FCEEEA" text-anchor="middle">4</text>
+      <text x="96" y="56" class="font-sans" font-size="24" font-weight="800" fill="#FCEEEA">🚄 300+ KM High-Speed Bullet Train Corridors</text>
+    </g>
+  </g>
+
+  <!-- Large Center Brand Badge -->
+  <g transform="translate(80, 840)">
+    <rect width="920" height="340" rx="36" fill="#141620" stroke="#282E42" stroke-width="2"/>
+    <rect width="920" height="340" rx="36" fill="url(#outroGlow)"/>
+
+    <!-- Stacked Brand Mark -->
+    <g transform="translate(80, 60)">
+      <rect x="0" y="0" width="180" height="180" rx="32" fill="#DFBF2B" filter="url(#cardShadow6)"/>
+      <rect x="20" y="14" width="180" height="180" rx="32" fill="#8974F8" filter="url(#cardShadow6)"/>
+      <rect x="42" y="30" width="180" height="180" rx="32" fill="#EB3B24" filter="url(#cardShadow6)"/>
+      <circle cx="186" cy="66" r="22" fill="#8FA949"/>
+      <text x="132" y="148" class="font-sans" font-size="76" font-weight="900" fill="#FCEEEA" text-anchor="middle">FC</text>
+    </g>
+
+    <!-- CTA & Follow Text -->
+    <g transform="translate(340, 75)">
+      <text class="font-sans" font-size="34" font-weight="900" fill="#FCEEEA">
+        <tspan x="0" y="0">Follow For Daily</tspan>
+        <tspan x="0" y="44" fill="#8974F8">India Intel &amp; Insights</tspan>
+      </text>
+      <text x="0" y="110" class="font-sans" font-size="20" font-weight="600" fill="#8D92A0">High signal, visual briefings delivered every 24 hours.</text>
+      
+      <!-- Engagement Badges -->
+      <g transform="translate(0, 145)">
+        <rect width="140" height="44" rx="22" fill="#1F2333" stroke="#31374D" stroke-width="1.5"/>
+        <text x="70" y="28" class="font-sans" font-size="16" font-weight="800" fill="#FCEEEA" text-anchor="middle">💬 COMMENT</text>
+
+        <rect x="155" y="0" width="120" height="44" rx="22" fill="#1F2333" stroke="#31374D" stroke-width="1.5"/>
+        <text x="215" y="28" class="font-sans" font-size="16" font-weight="800" fill="#FCEEEA" text-anchor="middle">↗ SHARE</text>
+
+        <rect x="290" y="0" width="110" height="44" rx="22" fill="#EB3B24"/>
+        <text x="345" y="28" class="font-sans" font-size="16" font-weight="800" fill="#FCEEEA" text-anchor="middle">🔖 SAVE</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Footer Bar -->
+  <g transform="translate(80, 1220)">
+    <line x1="0" y1="0" x2="920" y2="0" stroke="#232738" stroke-width="1.5"/>
+    <text x="0" y="44" class="font-sans" font-size="18" font-weight="700" fill="#DFBF2B">THE FC DAILY INDIA EDITION</text>
+    <text x="920" y="44" class="font-sans" font-size="18" font-weight="700" fill="#8974F8" text-anchor="end">ALL RIGHTS RESERVED</text>
+  </g>
+</svg>

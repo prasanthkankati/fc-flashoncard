@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FC Editorial Dispatch • Mobile-Optimized Edition (1080 × 1350)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #090A0E;
+      color: #FCEEEA;
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 20px;
+    }
+    header {
+      width: 100%;
+      max-width: 1200px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .brand-meta {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .red-bar {
+      width: 6px;
+      height: 32px;
+      background: #E51D24;
+      border-radius: 2px;
+    }
+    h1 { font-size: 20px; font-weight: 900; letter-spacing: -0.4px; }
+    .subtitle { font-size: 12px; color: #8D92A0; }
+
+    .controls-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    button {
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 10px 16px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.12);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .btn-red {
+      background: #E51D24;
+      color: #FFFFFF;
+      border: none;
+      box-shadow: 0 4px 18px rgba(229, 29, 36, 0.35);
+    }
+    .btn-red:hover { background: #ff2a32; transform: translateY(-1px); }
+    .btn-dark { background: #141620; color: #FCEEEA; }
+    .btn-dark:hover { background: #1F2232; }
+
+    .theme-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #12141C;
+      padding: 5px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 24px;
+    }
+    .theme-label {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      color: #6C7284;
+      padding: 0 10px;
+      text-transform: uppercase;
+    }
+    .theme-btn {
+      background: transparent;
+      border: none;
+      color: #8D92A0;
+      padding: 7px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .theme-btn.active {
+      background: #E51D24;
+      color: #FFFFFF;
+      box-shadow: 0 2px 10px rgba(229, 29, 36, 0.35);
+    }
+    .view-toggle { margin-left: auto; display: flex; gap: 4px; }
+
+    .studio-stage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      width: 100%;
+    }
+    .slide-viewport {
+      position: relative;
+      width: 480px;
+      height: 600px;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 25px 70px rgba(0,0,0,0.85), 0 0 0 1px rgba(255,255,255,0.1);
+      background: #FFFFFF;
+    }
+    .slide-item { display: none; width: 100%; height: 100%; }
+    .slide-item.active { display: block; }
+    .slide-item svg { width: 100%; height: 100%; display: block; }
+
+    .carousel-nav {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .nav-arrow {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      font-size: 18px;
+      background: #141620;
+      color: #FCEEEA;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .nav-arrow:hover { background: #1F2232; }
+    .dots { display: flex; gap: 8px; }
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #252838;
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+    .dot.active {
+      background: #E51D24;
+      width: 24px;
+      border-radius: 8px;
+    }
+
+    .thumbs-row {
+      display: flex;
+      gap: 12px;
+      max-width: 1200px;
+      overflow-x: auto;
+      padding: 8px 4px;
+    }
+    .thumb-card {
+      flex: 0 0 96px;
+      height: 120px;
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      border: 2px solid transparent;
+      opacity: 0.5;
+      background: #FFFFFF;
+      transition: all 0.2s;
+    }
+    .thumb-card:hover { opacity: 0.85; }
+    .thumb-card.active {
+      border-color: #E51D24;
+      opacity: 1;
+      transform: scale(1.04);
+      box-shadow: 0 8px 24px rgba(229, 29, 36, 0.3);
+    }
+    .thumb-card svg { width: 100%; height: 100%; pointer-events: none; }
+
+    #gridView {
+      display: none;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 28px;
+      width: 100%;
+      max-width: 1200px;
+      margin-top: 10px;
+    }
+    .grid-card {
+      background: #12141C;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .grid-preview {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      background: #FFFFFF;
+    }
+    .grid-preview svg { width: 100%; height: 100%; display: block; }
+    .grid-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2px 4px;
+    }
+    .grid-title { font-size: 13px; font-weight: 700; color: #FCEEEA; }
+
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #141620;
+      color: #FCEEEA;
+      border: 1px solid #E51D24;
+      padding: 12px 20px;
+      border-radius: 10px;
+      box-shadow: 0 12px 36px rgba(0,0,0,0.8);
+      font-size: 13px;
+      font-weight: 700;
+      display: none;
+      z-index: 9999;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Studio Header -->
+  <header>
+    <div class="brand-meta">
+      <div class="red-bar"></div>
+      <div>
+        <h1>FC EDITORIAL DISPATCH</h1>
+        <div class="subtitle">Mobile-Optimized • Audio Safe-Zone • 1080 × 1350 px (4:5)</div>
+      </div>
+    </div>
+    <div class="controls-bar">
+      <button class="btn-dark" onclick="downloadCurrentPng()">⬇ Active Slide PNG</button>
+      <button class="btn-red" onclick="downloadAllZip()">⚡ Download All 6 Slides (.ZIP Folder)</button>
+    </div>
+  </header>
+
+  <!-- Theme Bar -->
+  <div class="theme-bar">
+    <span class="theme-label">Default Template Theme:</span>
+    <button class="theme-btn active" id="btn-white" onclick="setTheme('white')">⚪ Minimalist White Studio</button>
+    <button class="theme-btn" id="btn-dark" onclick="setTheme('dark')">⚫ Minimalist Noir Studio</button>
+
+    <div class="view-toggle">
+      <button class="theme-btn active" id="view-carousel-btn" onclick="toggleView('carousel')">📱 Carousel</button>
+      <button class="theme-btn" id="view-grid-btn" onclick="toggleView('grid')">▦ Grid (All 6)</button>
+    </div>
+  </div>
+
+  <!-- Stage: Carousel -->
+  <div class="studio-stage" id="carouselStage">
+    <div class="slide-viewport" id="slideViewport"></div>
+    
+    <div class="carousel-nav">
+      <button class="nav-arrow" onclick="prevSlide()">←</button>
+      <div class="dots" id="dotsContainer"></div>
+      <button class="nav-arrow" onclick="nextSlide()">→</button>
+    </div>
+
+    <div class="thumbs-row" id="thumbsRow"></div>
+  </div>
+
+  <!-- Stage: Grid -->
+  <div id="gridView"></div>
+
+  <div id="toast">Exporting...</div>
+  <canvas id="exportCanvas" width="1080" height="1350" style="display:none;"></canvas>
+
+  <script>
+    /* Inlined Official FC Logo Data URIs */
+    const LOGO_WHITE = "__LOGO_WHITE__";
+    const LOGO_BLACK = "__LOGO_BLACK__";
+
+    /* High-Signal Daily Hyderabad News Dataset with Eye-Catching Number Highlights */
+    const HYD_DATA = [
+      {
+        id: "hyd-metro-p2",
+        category: "TRANSIT & MOBILITY",
+        code: "HMRL//METRO-P2",
+        headlineLines: [
+          { text: "METRO PHASE 2", isHighlight: false },
+          { text: "EXPANDS 76 KM", isHighlight: true },
+          { text: "TO AIRPORT", isHighlight: false }
+        ],
+        summary: "Telangana Cabinet cleared ₹24,269 Cr for 5 high-speed corridors connecting Old City & airport in 30 minutes flat.",
+        points: [
+          "Connects HITEC City directly to Shamshabad Airport in 30 minutes.",
+          "Adds 76.4 km of elevated and underground track across 5 corridors.",
+          "Civil construction tenders break ground across all priority stretches."
+        ],
+        source: "HMRL OFFICIAL DISPATCH",
+        vectorType: "metro"
+      },
+      {
+        id: "hyd-foxconn",
+        category: "MANUFACTURING & AI",
+        code: "KONGARA//AI-FAB",
+        headlineLines: [
+          { text: "FOXCONN MEGA HUB", isHighlight: false },
+          { text: "DEPLOYS 50,000", isHighlight: true },
+          { text: "TECH WORKERS", isHighlight: false }
+        ],
+        summary: "The 1.6M sq ft Kongara Kalan campus enters initial volume manufacturing alongside India's first 200-acre AI City.",
+        points: [
+          "Creates 50,000 direct consumer tech & robotics assembly jobs.",
+          "AI City allocates 200 acres with dedicated 500 MW green compute power.",
+          "Solidifies Hyderabad as South Asia's flagship hardware corridor."
+        ],
+        source: "ITE&C DEPARTMENT TELANGANA",
+        vectorType: "chip"
+      },
+      {
+        id: "hyd-rrr",
+        category: "MEGA INFRASTRUCTURE",
+        code: "NHAI//RRR-340KM",
+        headlineLines: [
+          { text: "340 KM REGIONAL", isHighlight: true },
+          { text: "RING ROAD PASSES", isHighlight: false },
+          { text: "90% ACQUISITION", isHighlight: true }
+        ],
+        summary: "The northern sector of the ₹31,000 Cr access-controlled greenfield expressway secures final clearances to begin construction.",
+        points: [
+          "340 km express orbital route bypasses urban commercial freight.",
+          "Directly interconnects 8 satellite industrial manufacturing zones.",
+          "Cuts regional logistics transit time by more than 45%."
+        ],
+        source: "NHAI & HMDA NOTIFICATION",
+        vectorType: "highway"
+      },
+      {
+        id: "hyd-gccs",
+        category: "GLOBAL ENTERPRISE",
+        code: "NEOPOLIS//GCC-7.4M",
+        headlineLines: [
+          { text: "FORTUNE 500 GIANTS", isHighlight: false },
+          { text: "LEASE 7.4M SQ FT", isHighlight: true },
+          { text: "IN HITEC CITY", isHighlight: false }
+        ],
+        summary: "Global engineering, finance, and AI tech titans lease record commercial square footage across Neopolis and Financial District.",
+        points: [
+          "Over 40 new Global Capability Centers opened this calendar cycle.",
+          "Hyderabad captured 32% of all GCC office leasing across India.",
+          "Surpasses 120,000 high-value tech and aerospace engineering hires."
+        ],
+        source: "TELANGANA COMMERCE & INDUSTRY",
+        vectorType: "tower"
+      }
+    ];
+
+    let currentTheme = 'white';
+    let currentIndex = 0;
+    const totalSlides = 6;
+
+    function setTheme(theme) {
+      currentTheme = theme;
+      document.getElementById('btn-white').classList.toggle('active', theme === 'white');
+      document.getElementById('btn-dark').classList.toggle('active', theme === 'dark');
+      renderAll();
+      showToast(`Switched to: ${theme === 'white' ? 'White Studio' : 'Noir Studio'}`);
+    }
+
+    function toggleView(mode) {
+      const cStage = document.getElementById('carouselStage');
+      const gStage = document.getElementById('gridView');
+      const btnC = document.getElementById('view-carousel-btn');
+      const btnG = document.getElementById('view-grid-btn');
+
+      if (mode === 'grid') {
+        cStage.style.display = 'none';
+        gStage.style.display = 'grid';
+        btnG.classList.add('active');
+        btnC.classList.remove('active');
+      } else {
+        cStage.style.display = 'flex';
+        gStage.style.display = 'none';
+        btnC.classList.add('active');
+        btnG.classList.remove('active');
+      }
+    }
+
+    /* Seamless Vector Artwork */
+    function getBlendedVectorArt(type, isWhite) {
+      const red = "#E51D24";
+      const mainStroke = isWhite ? "#0F1116" : "#FCEEEA";
+      const secStroke = isWhite ? "#62687A" : "#8990A4";
+      const softFill = isWhite ? "#EAECEF" : "#191B24";
+
+      switch (type) {
+        case 'hospital':
+          return `
+            <g transform="translate(30, 20)">
+              <rect x="50" y="45" width="230" height="230" rx="20" fill="${softFill}" stroke="${mainStroke}" stroke-width="4"/>
+              <rect x="140" y="75" width="50" height="110" rx="8" fill="${red}"/>
+              <rect x="110" y="105" width="110" height="50" rx="8" fill="${red}"/>
+              <path d="M 20 220 L 70 220 L 95 180 L 120 250 L 145 190 L 170 220 L 260 220" stroke="${mainStroke}" stroke-width="4" fill="none" stroke-linecap="round"/>
+              <circle cx="210" cy="75" r="14" fill="${softFill}" stroke="${mainStroke}" stroke-width="3"/>
+              <text x="165" y="260" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="800" fill="${secStroke}" text-anchor="middle">CIVIC HEALTH // UPGRADES</text>
+            </g>
+          `;
+        case 'currency_sanction':
+          return `
+            <g transform="translate(30, 20)">
+              <circle cx="165" cy="140" r="105" fill="${softFill}" stroke="${mainStroke}" stroke-width="4"/>
+              <circle cx="165" cy="140" r="85" fill="none" stroke="${red}" stroke-width="3" stroke-dasharray="8,6"/>
+              <text x="165" y="175" font-family="'Plus Jakarta Sans', sans-serif" font-size="96" font-weight="900" fill="${red}" text-anchor="middle">₹</text>
+              <path d="M 50 250 L 165 190 L 280 250" fill="none" stroke="${mainStroke}" stroke-width="5" stroke-linecap="round"/>
+              <line x1="165" y1="20" x2="165" y2="45" stroke="${secStroke}" stroke-width="4" stroke-linecap="round"/>
+              <line x1="165" y1="235" x2="165" y2="260" stroke="${secStroke}" stroke-width="4" stroke-linecap="round"/>
+              <text x="165" y="265" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="800" fill="${secStroke}" text-anchor="middle">CENTRAL CAPITAL // GRANTS</text>
+            </g>
+          `;
+        case 'metro_guideway':
+          return `
+            <g transform="translate(20, 20)">
+              <path d="M 20 280 Q 140 180 180 120 T 310 20" stroke="${secStroke}" stroke-width="6" fill="none" opacity="0.5"/>
+              <path d="M 60 300 Q 180 200 220 140 T 350 40" stroke="${secStroke}" stroke-width="4" fill="none" opacity="0.3"/>
+              ${[40, 90, 140, 190, 240, 290].map(x => `
+                <line x1="${x}" y1="${300 - (x * 0.85)}" x2="${x + 25}" y2="${315 - (x * 0.85)}" stroke="${mainStroke}" stroke-width="4" stroke-linecap="round"/>
+              `).join('')}
+              <circle cx="210" cy="130" r="28" fill="${softFill}" stroke="${red}" stroke-width="4"/>
+              <circle cx="210" cy="130" r="10" fill="${red}"/>
+              <path d="M 120 70 L 210 20 L 300 70 Z" fill="${softFill}" stroke="${mainStroke}" stroke-width="3"/>
+              <text x="180" y="275" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="800" fill="${secStroke}" text-anchor="middle">OLD CITY // TRANSIT LINK</text>
+            </g>
+          `;
+        case 'ai_education':
+          return `
+            <g transform="translate(30, 20)">
+              <rect x="50" y="45" width="230" height="230" rx="24" fill="${softFill}" stroke="${mainStroke}" stroke-width="4"/>
+              <circle cx="165" cy="120" r="34" fill="${red}"/>
+              <polygon points="165,85 200,105 165,125 130,105" fill="#FFFFFF"/>
+              <line x1="200" y1="105" x2="200" y2="135" stroke="#FFFFFF" stroke-width="3"/>
+              <circle cx="105" cy="195" r="18" fill="${softFill}" stroke="${mainStroke}" stroke-width="3.5"/>
+              <circle cx="165" cy="205" r="18" fill="${softFill}" stroke="${mainStroke}" stroke-width="3.5"/>
+              <circle cx="225" cy="195" r="18" fill="${softFill}" stroke="${mainStroke}" stroke-width="3.5"/>
+              <line x1="165" y1="154" x2="105" y2="195" stroke="${red}" stroke-width="3"/>
+              <line x1="165" y1="154" x2="165" y2="187" stroke="${red}" stroke-width="3"/>
+              <line x1="165" y1="154" x2="225" y2="195" stroke="${red}" stroke-width="3"/>
+              <text x="165" y="260" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="800" fill="${secStroke}" text-anchor="middle">IIT HYD // DEEP TECH AI</text>
+            </g>
+          `;
+        case 'metro':
+          return `
+            <g transform="translate(0, 0)">
+              <path d="M -40 360 Q 130 290 200 170 T 300 20" stroke="${secStroke}" stroke-width="5" fill="none" opacity="0.6"/>
+              <path d="M 20 380 Q 170 300 230 175 T 320 20" stroke="${secStroke}" stroke-width="3.5" fill="none" opacity="0.4"/>
+              <line x1="-10" y1="365" x2="35" y2="385" stroke="${mainStroke}" stroke-width="6" stroke-linecap="round"/>
+              <line x1="55" y1="325" x2="100" y2="340" stroke="${mainStroke}" stroke-width="5" stroke-linecap="round"/>
+              <line x1="120" y1="270" x2="160" y2="285" stroke="${mainStroke}" stroke-width="4" stroke-linecap="round"/>
+              <line x1="180" y1="200" x2="215" y2="210" stroke="${mainStroke}" stroke-width="3" stroke-linecap="round"/>
+              <g transform="translate(120, 35)">
+                <path d="M 0 170 L 130 170 C 185 170 215 145 225 105 L 195 105 C 165 105 145 75 105 75 L 0 75 Z" fill="${softFill}" stroke="${mainStroke}" stroke-width="4"/>
+                <path d="M 85 130 L 205 130 C 220 130 223 118 225 105 L 165 105 Z" fill="${red}"/>
+                <path d="M 20 95 L 125 95 C 145 95 165 100 175 110 L 20 110 Z" fill="${mainStroke}"/>
+                <line x1="-50" y1="150" x2="50" y2="150" stroke="${red}" stroke-width="3.5" stroke-linecap="round"/>
+              </g>
+            </g>
+          `;
+        case 'chip':
+          return `
+            <g transform="translate(30, 20)">
+              <rect x="50" y="40" width="230" height="230" rx="18" fill="${softFill}" stroke="${mainStroke}" stroke-width="4"/>
+              <rect x="65" y="55" width="20" height="20" rx="4" fill="${red}"/>
+              <rect x="95" y="85" width="140" height="140" rx="10" fill="none" stroke="${mainStroke}" stroke-width="3"/>
+              <circle cx="165" cy="155" r="40" fill="none" stroke="${red}" stroke-width="3"/>
+              <circle cx="165" cy="155" r="10" fill="${red}"/>
+              ${[70, 110, 150, 190, 230].map(p => `
+                <line x1="${p}" y1="10" x2="${p}" y2="40" stroke="${secStroke}" stroke-width="2.5"/>
+                <line x1="${p}" y1="270" x2="${p}" y2="300" stroke="${secStroke}" stroke-width="2.5"/>
+                <line x1="20" y1="${p}" x2="50" y2="${p}" stroke="${secStroke}" stroke-width="2.5"/>
+                <line x1="280" y1="${p}" x2="310" y2="${p}" stroke="${secStroke}" stroke-width="2.5"/>
+              `).join('')}
+              <text x="165" y="252" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="800" fill="${secStroke}" text-anchor="middle">50K WORKERS // AI FAB</text>
+            </g>
+          `;
+        case 'highway':
+          return `
+            <g transform="translate(20, 20)">
+              <ellipse cx="170" cy="150" rx="155" ry="105" fill="none" stroke="${secStroke}" stroke-width="3" stroke-dasharray="8,6" opacity="0.6"/>
+              <path d="M 0 270 Q 120 190 170 150 T 340 35" fill="none" stroke="${mainStroke}" stroke-width="7"/>
+              <path d="M 0 270 Q 120 190 170 150 T 340 35" fill="none" stroke="${red}" stroke-width="2.5"/>
+              <circle cx="170" cy="150" r="28" fill="${softFill}" stroke="${red}" stroke-width="3.5"/>
+              <circle cx="170" cy="150" r="8" fill="${mainStroke}"/>
+              <circle cx="60" cy="100" r="12" fill="${softFill}" stroke="${mainStroke}" stroke-width="2"/>
+              <circle cx="280" cy="200" r="12" fill="${softFill}" stroke="${mainStroke}" stroke-width="2"/>
+              <text x="170" y="230" font-family="'Bebas Neue', sans-serif" font-size="44" font-weight="900" fill="${red}" text-anchor="middle">340 KM</text>
+              <text x="170" y="252" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="800" fill="${secStroke}" letter-spacing="2" text-anchor="middle">ORBITAL CORRIDOR</text>
+            </g>
+          `;
+        case 'tower':
+          return `
+            <g transform="translate(40, 20)">
+              <path d="M 80 35 L 160 0 L 160 240 L 80 275 Z" fill="${softFill}" stroke="${mainStroke}" stroke-width="3"/>
+              <path d="M 0 75 L 80 35 L 80 275 L 0 315 Z" fill="${softFill}" stroke="${mainStroke}" stroke-width="3"/>
+              <path d="M 0 75 L 80 35 L 160 0 L 80 35 Z" fill="${red}"/>
+              <line x1="25" y1="105" x2="25" y2="285" stroke="${secStroke}" stroke-width="1.5" stroke-dasharray="6,5"/>
+              <line x1="55" y1="90" x2="55" y2="270" stroke="${secStroke}" stroke-width="1.5" stroke-dasharray="6,5"/>
+              <line x1="105" y1="60" x2="105" y2="240" stroke="${secStroke}" stroke-width="1.5" stroke-dasharray="6,5"/>
+              <line x1="135" y1="45" x2="135" y2="225" stroke="${secStroke}" stroke-width="1.5" stroke-dasharray="6,5"/>
+              <g transform="translate(130, 160)">
+                <rect width="130" height="52" rx="8" fill="${red}"/>
+                <text x="65" y="30" font-family="'Bebas Neue', sans-serif" font-size="24" font-weight="900" fill="#FFFFFF" text-anchor="middle">7.4M SQ FT</text>
+                <text x="65" y="44" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="800" fill="#FFFFFF" letter-spacing="1" text-anchor="middle">GRADE-A GCC</text>
+              </g>
+            </g>
+          `;
+        default:
+          return ``;
+      }
+    }
+
+    /* Segmented Story Progress Bar Component (Y: 1205px) */
+    function renderProgressBar(currentIdx, isWhite) {
+      const total = 6;
+      const totalWidth = 900;
+      const gap = 8;
+      const segWidth = (totalWidth - (gap * (total - 1))) / total;
+      const red = "#E51D24";
+      const inactiveColor = isWhite ? "rgba(0,0,0,0.14)" : "rgba(255,255,255,0.16)";
+
+      let bars = '<g transform="translate(90, 1205)">';
+      for (let s = 0; s < total; s++) {
+        const x = s * (segWidth + gap);
+        const color = s <= currentIdx ? red : inactiveColor;
+        bars += `<rect x="${x}" y="0" width="${segWidth}" height="5" rx="2.5" fill="${color}"/>`;
+      }
+      bars += '</g>';
+      return bars;
+    }
+
+    /* Master Render Function for Posters */
+    function renderDispatchSlide(index) {
+      const isWhite = currentTheme === 'white';
+      const bgColor = isWhite ? '#FFFFFF' : '#0B0C10';
+      const textColor = isWhite ? '#0D0F14' : '#FCEEEA';
+      const subtextColor = isWhite ? '#2A2E3B' : '#B0B7C8';
+      const mutedColor = isWhite ? '#585E70' : '#8A91A5';
+      const hairlineColor = isWhite ? 'rgba(0,0,0,0.12)' : 'rgba(255,255,255,0.12)';
+      const cardBg = isWhite ? '#F5F6FA' : '#131520';
+      const red = '#E51D24';
+      const greenLive = '#059669';
+      const currentLogo = isWhite ? LOGO_BLACK : LOGO_WHITE;
+
+      if (index === 0) {
+        // SLIDE 1: MAIN HOOK (COVER)
+        return `
+          <svg viewBox="0 0 1080 1350" width="1080" height="1350">
+            <rect width="1080" height="1350" fill="${bgColor}"/>
+
+            <!-- HEADER BAR: Y: 55 to 110 -->
+            <g transform="translate(90, 55)">
+              <rect x="0" y="0" width="7" height="38" rx="2" fill="${red}"/>
+              <text x="20" y="28" font-family="'Plus Jakarta Sans', sans-serif" font-size="26" font-weight="900" fill="${textColor}" letter-spacing="1">HYDERABAD DISPATCH.</text>
+              
+              <g transform="translate(900, 28)">
+                <circle cx="-230" cy="-7" r="7" fill="${greenLive}"/>
+                <text x="-212" y="0" font-family="'JetBrains Mono', monospace" font-size="18" font-weight="800" fill="${greenLive}">LIVE TODAY</text>
+                <text x="-95" y="0" font-family="'JetBrains Mono', monospace" font-size="18" font-weight="700" fill="${mutedColor}">• 11 NOV 2026</text>
+              </g>
+            </g>
+            <line x1="90" y1="110" x2="990" y2="110" stroke="${hairlineColor}" stroke-width="1.5"/>
+
+            <!-- UPPER ZONE: Bebas Neue with Red Highlight on NOW -->
+            <g transform="translate(90, 145)">
+              <text font-family="'Bebas Neue', sans-serif" font-size="94" font-weight="900" fill="${textColor}" letter-spacing="2" line-height="0.94">
+                <tspan x="0" y="78">THIS IS</tspan>
+                <tspan x="0" y="162">WHAT'S</tspan>
+                <tspan x="0" y="246">HAPPENING</tspan>
+                <tspan x="0" y="330">IN HYD</tspan>
+                <tspan x="0" y="414" fill="${red}">NOW</tspan>
+              </text>
+              <rect x="0" y="445" width="95" height="6" rx="2" fill="${red}"/>
+
+              <text x="0" y="495" font-family="'Plus Jakarta Sans', sans-serif" font-size="26" font-weight="600" fill="${subtextColor}">
+                <tspan x="0" y="495">4 high-magnitude infrastructure and tech</tspan>
+                <tspan x="0" y="534">shifts transforming the city today.</tspan>
+              </text>
+            </g>
+
+            <g transform="translate(630, 160)">
+              ${getBlendedVectorArt('metro', isWhite)}
+              <text x="180" y="390" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="800" fill="${red}" text-anchor="middle">// URBAN MOBILITY &amp; FAB</text>
+            </g>
+
+            <!-- LOWER ZONE: 4 Stories -->
+            <g transform="translate(90, 745)">
+              ${HYD_DATA.map((item, i) => `
+                <g transform="translate(0, ${i * 108})">
+                  <rect width="900" height="94" rx="14" fill="${cardBg}" stroke="${hairlineColor}" stroke-width="1.5"/>
+                  <text x="28" y="58" font-family="'Bebas Neue', sans-serif" font-size="34" font-weight="900" fill="${red}">0${i + 1}</text>
+                  <text x="82" y="55" font-family="'Plus Jakarta Sans', sans-serif" font-size="22" font-weight="800" fill="${textColor}">
+                    ${item.headlineLines.map(l => l.text).join(' ')}
+                  </text>
+                  <text x="860" y="55" font-family="'JetBrains Mono', monospace" font-size="20" font-weight="800" fill="${mutedColor}" text-anchor="end">→</text>
+                </g>
+              `).join('')}
+            </g>
+
+            <!-- SEGMENTED PROGRESS BAR -->
+            ${renderProgressBar(0, isWhite)}
+
+            <!-- FOOTER BAR: Logo in CENTER-BOTTOM Safe Zone (Audio Icon Collision-Free) -->
+            <g transform="translate(90, 1245)">
+              <text x="0" y="24" font-family="'JetBrains Mono', monospace" font-size="18" font-weight="700" fill="${mutedColor}">FC//DAILY_DISPATCH</text>
+              
+              <!-- CENTER-BOTTOM SAFE POSITION -->
+              <g transform="translate(415, 2)">
+                <image href="${currentLogo}" x="0" y="0" width="75" height="36" preserveAspectRatio="xMidYMid meet"/>
+              </g>
+
+              <text x="900" y="24" font-family="'Plus Jakarta Sans', sans-serif" font-size="18" font-weight="900" fill="${red}" text-anchor="end">SWIPE →</text>
+            </g>
+          </svg>
+        `;
+      } else if (index === 5) {
+        // SLIDE 6: OUTRO
+        return `
+          <svg viewBox="0 0 1080 1350" width="1080" height="1350">
+            <rect width="1080" height="1350" fill="${bgColor}"/>
+
+            <!-- HEADER BAR -->
+            <g transform="translate(90, 55)">
+              <rect x="0" y="0" width="7" height="38" rx="2" fill="${red}"/>
+              <text x="20" y="28" font-family="'Plus Jakarta Sans', sans-serif" font-size="26" font-weight="900" fill="${textColor}" letter-spacing="1">HYDERABAD DISPATCH.</text>
+              <g transform="translate(900, 28)">
+                <circle cx="-230" cy="-7" r="7" fill="${greenLive}"/>
+                <text x="-212" y="0" font-family="'JetBrains Mono', monospace" font-size="18" font-weight="800" fill="${greenLive}">LIVE TODAY</text>
+                <text x="-95" y="0" font-family="'JetBrains Mono', monospace" font-size="18" font-weight="700" fill="${mutedColor}">• 11 NOV 2026</text>
+              </g>
+            </g>
+            <line x1="90" y1="110" x2="990" y2="110" stroke="${hairlineColor}" stroke-width="1.5"/>
+
+            <!-- HEADLINE -->
+            <g transform="translate(90, 150)">
+              <text font-family="'Bebas Neue', sans-serif" font-size="98" font-weight="900" fill="${textColor}" letter-spacing="2" line-height="0.94">
+                <tspan x="0" y="80">WHICH PROJECT</tspan>
+                <tspan x="0" y="168">TRANSFORMS</tspan>
+                <tspan x="0" y="256">HYDERABAD</tspan>
+                <tspan x="0" y="344" fill="${red}">MOST?</tspan>
+              </text>
+              <rect x="0" y="380" width="95" height="6" rx="2" fill="${red}"/>
+              <text x="0" y="435" font-family="'Plus Jakarta Sans', sans-serif" font-size="26" font-weight="600" fill="${subtextColor}">
+                Drop your perspective in the comments below.
+              </text>
+            </g>
+
+            <!-- 4 Dynamic Options from HYD_DATA -->
+            <g transform="translate(90, 620)">
+              ${HYD_DATA.map((opt, oi) => `
+                <g transform="translate(0, ${oi * 135})">
+                  <rect width="900" height="116" rx="16" fill="${cardBg}" stroke="${hairlineColor}" stroke-width="1.5"/>
+                  <text x="32" y="70" font-family="'Bebas Neue', sans-serif" font-size="42" font-weight="900" fill="${red}">0${oi + 1}</text>
+                  <text x="100" y="52" font-family="'Plus Jakarta Sans', sans-serif" font-size="23" font-weight="900" fill="${textColor}">${opt.headlineLines ? opt.headlineLines.map(l => l.text).join(' ').slice(0, 45) : opt.t}</text>
+                  <text x="100" y="86" font-family="'Plus Jakarta Sans', sans-serif" font-size="18" font-weight="600" fill="${subtextColor}">${opt.summary ? wrapSafeText(opt.summary, 60)[0] : opt.d}</text>
+                </g>
+              `).join('')}
+            </g>
+
+            <!-- SEGMENTED PROGRESS BAR -->
+            ${renderProgressBar(5, isWhite)}
+
+            <!-- FOOTER BAR: Logo in CENTER-BOTTOM Safe Zone -->
+            <g transform="translate(90, 1245)">
+              <text x="0" y="24" font-family="'Plus Jakarta Sans', sans-serif" font-size="18" font-weight="800" fill="${subtextColor}">💬 VOTE IN COMMENTS</text>
+              
+              <g transform="translate(415, 2)">
+                <image href="${currentLogo}" x="0" y="0" width="75" height="36" preserveAspectRatio="xMidYMid meet"/>
+              </g>
+
+              <text x="900" y="24" font-family="'Plus Jakarta Sans', sans-serif" font-size="18" font-weight="900" fill="${red}" text-anchor="end">FOLLOW @FC ↗</text>
+            </g>
+          </svg>
+        `;
+      } else {
+        // SLIDES 2 to 5: INDIVIDUAL NEWS ITEMS WITH HIGHLIGHTED NUMBERS/PERCENTAGES
+        const item = HYD_DATA[index - 1];
+        return `
+          <svg viewBox="0 0 1080 1350" width="1080" height="1350">
+            <rect width="1080" height="1350" fill="${bgColor}"/>
+
+            <!-- HEADER BAR: Y: 55 to 110 -->
+            <g transform="translate(90, 55)">
+              <rect x="0" y="0" width="7" height="38" rx="2" fill="${red}"/>
+              <text x="20" y="28" font-family="'Plus Jakarta Sans', sans-serif" font-size="26" font-weight="900" fill="${textColor}" letter-spacing="1">${item.category}.</text>
+              
+              <g transform="translate(900, 28)">
+                <circle cx="-230" cy="-7" r="7" fill="${greenLive}"/>
+                <text x="-212" y="0" font-family="'JetBrains Mono', monospace" font-size="18" font-weight="800" fill="${greenLive}">LIVE TODAY</text>
+                <text x="-95" y="0" font-family="'JetBrains Mono', monospace" font-size="18" font-weight="700" fill="${mutedColor}">• 11 NOV 2026</text>
+              </g>
+            </g>
+            <line x1="90" y1="110" x2="990" y2="110" stroke="${hairlineColor}" stroke-width="1.5"/>
+
+            <!-- UPPER ZONE: Bebas Neue with Numbers Highlighted in Red -->
+            <g transform="translate(90, 145)">
+              <text font-family="'Bebas Neue', sans-serif" font-size="88" font-weight="900" fill="${textColor}" letter-spacing="2" line-height="0.94">
+                ${item.headlineLines.map((l, li) => `<tspan x="0" y="${74 + (li * 82)}" fill="${l.isHighlight ? red : textColor}">${l.text}</tspan>`).join('')}
+              </text>
+              <rect x="0" y="${item.headlineLines.length * 82 + 18}" width="95" height="6" rx="2" fill="${red}"/>
+
+              <g transform="translate(0, ${item.headlineLines.length * 82 + 55})">
+                <text font-family="'Plus Jakarta Sans', sans-serif" font-size="26" font-weight="600" fill="${subtextColor}" line-height="1.45">
+                  ${wrapSafeText(item.summary, 34).map((line, li) => `<tspan x="0" y="${li * 36}">${line}</tspan>`).join('')}
+                </text>
+              </g>
+            </g>
+
+            <!-- Vector Art -->
+            <g transform="translate(630, 145)">
+              ${getBlendedVectorArt(item.vectorType, isWhite)}
+            </g>
+
+            <!-- LOWER ZONE: 3 PUNCHY NEWS BULLETS -->
+            <g transform="translate(90, 620)">
+              ${item.points.map((pt, pi) => `
+                <g transform="translate(0, ${pi * 182})">
+                  <rect width="900" height="158" rx="18" fill="${cardBg}" stroke="${hairlineColor}" stroke-width="1.5"/>
+                  <circle cx="40" cy="50" r="9" fill="${red}"/>
+                  <text x="40" y="52" font-family="'Plus Jakarta Sans', sans-serif" font-size="26" font-weight="700" fill="${textColor}" line-height="1.45">
+                    ${wrapSafeText(pt, 46).map((line, li) => `<tspan x="72" y="${52 + (li * 38)}">${line}</tspan>`).join('')}
+                  </text>
+                </g>
+              `).join('')}
+            </g>
+
+            <!-- SEGMENTED STORY PROGRESS BAR -->
+            ${renderProgressBar(index, isWhite)}
+
+            <!-- FOOTER BAR: Logo in CENTER-BOTTOM Safe Zone (Audio Icon Collision-Free) -->
+            <g transform="translate(90, 1245)">
+              <text x="0" y="24" font-family="'JetBrains Mono', monospace" font-size="18" font-weight="700" fill="${mutedColor}">SOURCE: ${item.source}</text>
+              
+              <!-- CENTER-BOTTOM SAFE POSITION -->
+              <g transform="translate(415, 2)">
+                <image href="${currentLogo}" x="0" y="0" width="75" height="36" preserveAspectRatio="xMidYMid meet"/>
+              </g>
+
+              <text x="900" y="24" font-family="'Plus Jakarta Sans', sans-serif" font-size="18" font-weight="900" fill="${red}" text-anchor="end">SWIPE →</text>
+            </g>
+          </svg>
+        `;
+      }
+    }
+
+    function wrapSafeText(text, maxChars) {
+      const words = text.split(' ');
+      const lines = [];
+      let current = '';
+      for (const w of words) {
+        if ((current + ' ' + w).trim().length <= maxChars) {
+          current = (current + ' ' + w).trim();
+        } else {
+          if (current) lines.push(current);
+          current = w;
+        }
+      }
+      if (current) lines.push(current);
+      return lines;
+    }
+
+    /* Master Render */
+    function renderAll() {
+      const viewport = document.getElementById('slideViewport');
+      const dots = document.getElementById('dotsContainer');
+      const thumbs = document.getElementById('thumbsRow');
+      const grid = document.getElementById('gridView');
+
+      viewport.innerHTML = '';
+      dots.innerHTML = '';
+      thumbs.innerHTML = '';
+      grid.innerHTML = '';
+
+      for (let i = 0; i < totalSlides; i++) {
+        const svgString = renderDispatchSlide(i);
+
+        // Viewport
+        const item = document.createElement('div');
+        item.className = 'slide-item' + (i === currentIndex ? ' active' : '');
+        item.id = 'slide-' + i;
+        item.innerHTML = svgString;
+        viewport.appendChild(item);
+
+        // Dot
+        const dot = document.createElement('div');
+        dot.className = 'dot' + (i === currentIndex ? ' active' : '');
+        dot.id = 'dot-' + i;
+        dot.onclick = () => goToSlide(i);
+        dots.appendChild(dot);
+
+        // Thumb
+        const thumb = document.createElement('div');
+        thumb.className = 'thumb-card' + (i === currentIndex ? ' active' : '');
+        thumb.id = 'thumb-' + i;
+        thumb.onclick = () => goToSlide(i);
+        thumb.innerHTML = svgString;
+        thumbs.appendChild(thumb);
+
+        // Grid
+        const card = document.createElement('div');
+        card.className = 'grid-card';
+        card.innerHTML = `
+          <div class="grid-preview">${svgString}</div>
+          <div class="grid-meta">
+            <span class="grid-title">Slide 0${i + 1}</span>
+            <button class="btn-dark" style="padding:6px 12px; font-size:12px;" onclick="exportSinglePng(${i})">⬇ PNG</button>
+          </div>
+        `;
+        grid.appendChild(card);
+      }
+    }
+
+    function goToSlide(index) {
+      for (let i = 0; i < totalSlides; i++) {
+        document.getElementById('slide-' + i)?.classList.toggle('active', i === index);
+        document.getElementById('dot-' + i)?.classList.toggle('active', i === index);
+        document.getElementById('thumb-' + i)?.classList.toggle('active', i === index);
+      }
+      currentIndex = index;
+    }
+
+    function nextSlide() { goToSlide((currentIndex + 1) % totalSlides); }
+    function prevSlide() { goToSlide((currentIndex - 1 + totalSlides) % totalSlides); }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') nextSlide();
+      if (e.key === 'ArrowLeft') prevSlide();
+    });
+
+    /* PNG Exporter */
+    /* PNG Render Helper */
+    function renderSvgToBlob(slideIndex) {
+      return new Promise((resolve) => {
+        const svgEl = document.querySelector(`#slide-${slideIndex} svg`);
+        const svgString = new XMLSerializer().serializeToString(svgEl);
+        const canvas = document.getElementById('exportCanvas');
+        const ctx = canvas.getContext('2d');
+        const img = new Image();
+
+        const svgBlob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+        const url = URL.createObjectURL(svgBlob);
+
+        img.onload = () => {
+          ctx.clearRect(0, 0, 1080, 1350);
+          ctx.drawImage(img, 0, 0, 1080, 1350);
+          URL.revokeObjectURL(url);
+
+          canvas.toBlob((blob) => {
+            resolve(blob);
+          }, 'image/png', 1.0);
+        };
+        img.src = url;
+      });
+    }
+
+    async function exportSinglePng(slideIndex) {
+      showToast(`Rendering Slide 0${slideIndex + 1} PNG...`);
+      const blob = await renderSvgToBlob(slideIndex);
+      const downloadUrl = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = downloadUrl;
+      a.download = `FC-Dispatch-${currentTheme}-0${slideIndex + 1}.png`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(downloadUrl);
+      showToast(`Slide 0${slideIndex + 1} Downloaded!`);
+    }
+
+    async function downloadCurrentPng() {
+      await exportSinglePng(currentIndex);
+    }
+
+    async function downloadAllZip() {
+      if (typeof JSZip === 'undefined') {
+        showToast('JSZip is still loading, please retry in a second...');
+        return;
+      }
+      showToast('Rendering all 6 slides into a single ZIP folder...');
+      try {
+        const zip = new JSZip();
+        const folder = zip.folder(`FC-Dispatch-${currentTheme.toUpperCase()}`);
+
+        for (let i = 0; i < totalSlides; i++) {
+          showToast(`Packaging Slide 0${i + 1} of ${totalSlides}...`);
+          const blob = await renderSvgToBlob(i);
+          const slideName = i === 0 ? 'Slide-01-Cover.png' :
+                            i === totalSlides - 1 ? 'Slide-06-Outro.png' :
+                            `Slide-0${i + 1}-${HYD_DATA[i - 1]?.id || 'story'}.png`;
+          folder.file(slideName, blob);
+        }
+
+        showToast('Compressing ZIP folder...');
+        const zipBlob = await zip.generateAsync({ type: 'blob' });
+        const downloadUrl = URL.createObjectURL(zipBlob);
+        const a = document.createElement('a');
+        a.href = downloadUrl;
+        a.download = `FC-Editorial-Dispatch-${currentTheme.toUpperCase()}-${new Date().toISOString().slice(0, 10)}.zip`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(downloadUrl);
+        showToast('✔ Complete Folder (.ZIP) downloaded!');
+      } catch (err) {
+        console.error(err);
+        showToast('Export failed. Check console.');
+      }
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.style.display = 'block';
+      setTimeout(() => { toast.style.display = 'none'; }, 2600);
+    }
+
+    window.onload = renderAll;
+  </script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Local secrets & credentials
+config.json
+ig_session.json
+ig_session_base64.txt
+.env
+
+# Generated slides (uploaded to GitHub Artifacts instead of git bloat)
+dist/
+node_modules/
+.DS_Store
+Thumbs.db
