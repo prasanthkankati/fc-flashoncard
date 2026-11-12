@@ -75,3 +75,22 @@ Y: 1238px │ SOURCE: HMRL (18px)        [ FC. Logo ]        SWIPE →     │  
 - **Hyderabad Engine:** `python render_engine.py`
   - Renders all 6 Hyderabad slides to `dist/today/Slide-01..06.png`.
   - Approval and Telegram dispatch via `python approval_bot.py`.
+
+---
+
+## 4. GitHub Actions Cloud Automation (Runs When PC is Shutdown)
+- **Workflow File:** [.github/workflows/daily_dispatch.yml](file:///C:/Users/Prasa/fc-posters/.github/workflows/daily_dispatch.yml)
+- **Schedule:** Runs daily at 08:00 AM IST (`cron: '30 2 * * *'`) or on manual trigger via GitHub web/mobile.
+- **Workflow Execution:**
+  1. Spawns cloud `ubuntu-latest` runner.
+  2. Installs Python 3.11, Playwright Chromium & dependencies.
+  3. Reconstructs `config.json` & `ig_session.json` from encrypted GitHub Secrets.
+  4. Runs `daily_dispatch.py` (fetches fresh news, renders 1080×1350 PNGs, sends Telegram album).
+  5. Listens for 30 minutes for user tap on Telegram mobile (`[APPROVE]` or `[REJECT]`).
+  6. Upon approval, posts directly to Instagram.
+  7. Commits updated `posted_history.json` and `index.html` back to git so news never repeats.
+  8. Archives PNGs to GitHub Run Artifacts (30-day retention).
+- **Required GitHub Secrets:**
+  - `TELEGRAM_BOT_TOKEN`
+  - `TELEGRAM_CHAT_ID`
+  - `IG_SESSION_B64` (Base64 of `ig_session.json`)
