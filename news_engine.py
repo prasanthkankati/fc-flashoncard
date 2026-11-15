@@ -32,7 +32,27 @@ def hash_title(title):
     norm = re.sub(r'[^a-zA-Z0-9]', '', title.lower())
     return hashlib.md5(norm.encode('utf-8')).hexdigest()
 
-def fetch_rss_news(query="Hyderabad+metro+OR+infrastructure+OR+tech+OR+AI"):
+RSS_QUERIES = [
+    "Hyderabad+metro+OR+infrastructure+OR+tech+OR+AI+OR+Telangana",
+    "India+semiconductor+OR+ISRO+OR+AI+OR+data+center+OR+expressway",
+    "India+fintech+OR+UPI+OR+startup+OR+manufacturing+OR+renewable+energy",
+    "OpenAI+OR+Anthropic+OR+Nvidia+OR+TSMC+OR+compute+OR+robotics",
+    "Hyderabad+GCC+OR+HITEC+City+OR+pharma+OR+aerospace+OR+investment",
+]
+
+VECTOR_POOL = [
+    "metro",
+    "chip",
+    "highway",
+    "tower",
+    "hospital",
+    "currency_sanction",
+    "metro_guideway",
+    "ai_education",
+]
+
+
+def fetch_rss_news(query=RSS_QUERIES[0]):
     url = f"https://news.google.com/rss/search?q={query}+when:3d&hl=en-IN&gl=IN&ceid=IN:en"
     req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'})
     
@@ -50,7 +70,11 @@ def fetch_rss_news(query="Hyderabad+metro+OR+infrastructure+OR+tech+OR+AI"):
                 source = item.find('source').text if item.find('source') is not None else 'NEWS DISPATCH'
                 
                 lower_t = title.lower()
-                if any(x in lower_t for x in ['cricket', 'murder', 'arrested', 'movie', 'cinema', 'trailer', 'song']):
+                if any(x in lower_t for x in [
+                    'cricket', 'murder', 'arrested', 'movie', 'cinema', 'trailer', 'song',
+                    'gutted', 'fire', 'accident', 'killed', 'died', 'dead', 'rape', 'robbery',
+                    'theft', 'cyclothon', 'marathon', 'lok sabha', 'election', 'party worker'
+                ]):
                     continue
                 
                 stories.append({
@@ -62,110 +86,135 @@ def fetch_rss_news(query="Hyderabad+metro+OR+infrastructure+OR+tech+OR+AI"):
                 })
             return stories
     except Exception as e:
-        print(f"Error fetching RSS: {e}")
+        print(f"Error fetching RSS ({query}): {e}")
         return []
 
+
 def extract_unique_stories(count=4):
-    history = get_history()
-    raw_stories = fetch_rss_news()
-    
+    seen_hashes = set(get_history())
     unique_stories = []
     new_hashes = []
-    
-    for s in raw_stories:
-        h = hash_title(s['title'])
-        if h not in history:
-            unique_stories.append(s)
-            new_hashes.append(h)
-            if len(unique_stories) >= count:
-                break
-                
+
+    for query in RSS_QUERIES:
+        raw_stories = fetch_rss_news(query)
+        for s in raw_stories:
+            h = hash_title(s['title'])
+            if h not in seen_hashes:
+                seen_hashes.add(h)
+                unique_stories.append(s)
+                new_hashes.append(h)
+                if len(unique_stories) >= count:
+                    return unique_stories, new_hashes
+
     return unique_stories, new_hashes
 
-def parse_story_to_fc_item(story, idx):
+
+def _truncate_words(text, max_len):
+    text = re.sub(r'\s+', ' ', (text or '')).strip()
+    if len(text) <= max_len:
+        return text
+    words = text.split(' ')
+    out = ''
+    for w in words:
+        candidate = (out + ' ' + w).strip() if out else w
+        if len(candidate) <= max_len:
+            out = candidate
+        else:
+            break
+    if not out:
+        return text[:max_len].strip()
+    return out.rstrip(',;:-')
+
+
+def _build_headline_lines(clean_title, max_chars=14, max_lines=3):
+    words = [w for w in re.sub(r'\s+', ' ', clean_title.upper()).strip().split(' ') if w]
+    lines = []
+    current = ''
+    for w in words:
+        if len(w) > max_chars:
+            w = w[:max_chars]
+        candidate = (current + ' ' + w).strip() if current else w
+        if len(candidate) <= max_chars:
+            current = candidate
+        else:
+            if current:
+                lines.append(current)
+                if len(lines) >= max_lines:
+                    current = ''
+                    break
+            current = w
+    if current and len(lines) < max_lines:
+        lines.append(current)
+
+    fallbacks = ["KEY", "SHIFT", "UPDATE"]
+    while len(lines) < max_lines:
+        lines.append(fallbacks[len(lines)])
+
+    highlight_idx = next(
+        (i for i, text in enumerate(lines) if any(ch.isdigit() or ch in '₹$%' for ch in text)),
+        1,
+    )
+    return [{"text": text, "isHighlight": i == highlight_idx} for i, text in enumerate(lines)]
+
+
+def _pick_unique_vector(preferred, used_vectors):
+    if used_vectors is None:
+        return preferred
+    if preferred not in used_vectors:
+        used_vectors.add(preferred)
+        return preferred
+    for candidate in VECTOR_POOL:
+        if candidate not in used_vectors:
+            used_vectors.add(candidate)
+            return candidate
+    return preferred
+
+
+def parse_story_to_fc_item(story, idx, used_vectors=None):
     title = story["title"]
     clean_title = re.sub(r'\s*-\s*[^-]+$', '', title).strip()
     source = story.get("source", "NEWS DISPATCH")
     lower_t = clean_title.lower()
-    
-    # 1. Topic, Category & Unique Vector Art Assignment
-    if any(k in lower_t for k in ["hospital", "health", "equipment", "upgrades", "collector"]):
+
+    if any(k in lower_t for k in ["hospital", "health", "pharma", "medical", "upgrades"]):
         category = "HEALTHCARE & CIVIC"
-        code = "CIVIC//01"
-        vector = "hospital"
-        headline_lines = [
-            {"text": "HYDERABAD", "isHighlight": False},
-            {"text": "HOSPITALS GET", "isHighlight": False},
-            {"text": "MAJOR UPGRADES", "isHighlight": True}
-        ]
-        summary = "District administration fast-tracks comprehensive proposals for hospital equipment and modern diagnostic upgrades."
-        points = [
-            "Allocates priority equipment procurement across major public hospitals.",
-            "Upgrades emergency care, diagnostic wings, and critical patient infrastructure.",
-            "District Collector directly oversees weekly milestone delivery."
-        ]
-    elif any(k in lower_t for k in ["sanctions", "crore", "₹275", "₹150", "sanction"]):
-        category = "TRANSIT & FINANCING"
-        code = "CAPITAL//02"
-        vector = "currency_sanction"
-        headline_lines = [
-            {"text": "CENTRE CLEARS", "isHighlight": False},
-            {"text": "₹425 CRORE", "isHighlight": True},
-            {"text": "FOR METRO WORKS", "isHighlight": False}
-        ]
-        summary = "Union government clears crucial funding allocations to accelerate Metro Phase 2 underground and airport corridors."
-        points = [
-            "Sanctions ₹275 Cr and ₹150 Cr for priority corridor execution.",
-            "Speeds up utility shifting, civil contracts, and land acquisition.",
-            "Ensures uninterrupted capital flow for high-speed airport transit."
-        ]
-    elif any(k in lower_t for k in ["old city", "expansion", "musi", "push"]):
+        code = f"CIVIC//0{idx+1}"
+        preferred_vector = "hospital"
+    elif any(k in lower_t for k in ["sanction", "crore", "billion", "million", "₹", "$", "fintech", "upi", "funding", "investment"]):
+        category = "CAPITAL & MARKETS"
+        code = f"CAPITAL//0{idx+1}"
+        preferred_vector = "currency_sanction"
+    elif any(k in lower_t for k in ["old city", "metro", "rail", "transit", "airport"]):
         category = "URBAN CONNECTIVITY"
-        code = "TRANSIT//03"
-        vector = "metro_guideway"
-        headline_lines = [
-            {"text": "OLD CITY METRO", "isHighlight": False},
-            {"text": "EXPANSION GETS", "isHighlight": False},
-            {"text": "FRESH PUSH", "isHighlight": True}
-        ]
-        summary = "State government synchronizes Old City metro rail integration alongside Musi riverfront urban transformation."
-        points = [
-            "Extends rapid mass transit into densely populated heritage zones.",
-            "Connects Chandrayangutta and Falaknuma to major employment hubs.",
-            "Cuts daily travel time across central corridors by 40%."
-        ]
-    elif any(k in lower_t for k in ["iit", "ai courses", "training", "programmes", "education"]):
+        code = f"TRANSIT//0{idx+1}"
+        preferred_vector = "metro_guideway" if idx % 2 == 0 else "metro"
+    elif any(k in lower_t for k in ["expressway", "highway", "corridor", "road", "infrastructure"]):
+        category = "INFRASTRUCTURE"
+        code = f"INFRA//0{idx+1}"
+        preferred_vector = "highway"
+    elif any(k in lower_t for k in ["iit", "academy", "education", "training", "university"]):
+        category = "AI & TALENT"
+        code = f"ACADEMY//0{idx+1}"
+        preferred_vector = "ai_education"
+    elif any(k in lower_t for k in ["chip", "semiconductor", "tsmc", "nvidia", "ai", "openai", "anthropic", "compute", "data center", "isro", "robotics"]):
         category = "AI & DEEP TECH"
-        code = "ACADEMY//04"
-        vector = "ai_education"
-        headline_lines = [
-            {"text": "IIT HYDERABAD", "isHighlight": False},
-            {"text": "LAUNCHES NEW", "isHighlight": False},
-            {"text": "AI PROGRAMS", "isHighlight": True}
-        ]
-        summary = "Premier tech institute unveils advanced AI training tracks to upskill engineering and research talent."
-        points = [
-            "Hands-on modules covering generative AI, robotics, and edge compute.",
-            "Designed for industry professionals and tech engineering graduates.",
-            "Reinforces Hyderabad as South Asia's flagship AI innovation hub."
-        ]
+        code = f"TECH//0{idx+1}"
+        preferred_vector = "chip"
     else:
         category = "URBAN DEVELOPMENT"
         code = f"DISPATCH//0{idx+1}"
-        vector = "tower"
-        words = clean_title.upper().split()
-        headline_lines = [
-            {"text": " ".join(words[:2])[:14], "isHighlight": False},
-            {"text": " ".join(words[2:4])[:14] if len(words) > 2 else "EXPANSION", "isHighlight": True},
-            {"text": " ".join(words[4:6])[:14] if len(words) > 4 else "INITIATIVE", "isHighlight": False}
-        ]
-        summary = f"Key development recorded today as {clean_title.lower()} advances under active state oversight."
-        points = [
-            f"Milestone reported: {clean_title[:80]}.",
-            f"Tracked under priority urban modernization schedule.",
-            f"Verified via official reporting from {source}."
-        ]
-        
+        preferred_vector = "tower"
+
+    vector = _pick_unique_vector(preferred_vector, used_vectors)
+    headline_lines = _build_headline_lines(clean_title, max_chars=14, max_lines=3)
+    summary = _truncate_words(clean_title, 78)
+    desc = _truncate_words(story.get("description", ""), 92)
+    points = [
+        _truncate_words(clean_title, 95),
+        desc if len(desc) >= 24 else _truncate_words(f"Key shift tracked under {category.lower()} developments.", 88),
+        _truncate_words(f"Verified dispatch reported by {source}.", 88),
+    ]
+
     return {
         "id": f"hyd-news-0{idx+1}",
         "category": category,
@@ -177,12 +226,14 @@ def parse_story_to_fc_item(story, idx):
         "vectorType": vector
     }
 
+
 def inject_stories_into_html(stories, html_path=INDEX_HTML_PATH):
     """
     Transforms raw stories into FC items, replaces HYD_DATA in index.html,
     and updates the live date stamp.
     """
-    fc_items = [parse_story_to_fc_item(s, i) for i, s in enumerate(stories)]
+    used_vectors = set()
+    fc_items = [parse_story_to_fc_item(s, i, used_vectors=used_vectors) for i, s in enumerate(stories)]
     js_data = "const HYD_DATA = " + json.dumps(fc_items, indent=6) + ";"
     
     with open(html_path, "r", encoding="utf-8") as f:
@@ -202,7 +253,10 @@ def inject_stories_into_html(stories, html_path=INDEX_HTML_PATH):
     return fc_items
 
 def generate_caption_for_stories(stories):
-    lines = [f"• {re.sub(r'\\s*-\\s*[^-]+$', '', s['title']).strip()}" for s in stories]
+    lines = []
+    for s in stories:
+        clean = re.sub(r'\s*-\s*[^-]+$', '', s['title']).strip()
+        lines.append(f"• {clean}")
     summary_bullets = "\n".join(lines)
     
     caption = (
