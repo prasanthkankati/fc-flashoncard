@@ -296,8 +296,35 @@
     const HYD_DATA = [
       {
             "id": "hyd-news-01",
+            "category": "URBAN CONNECTIVITY",
+            "code": "TRANSIT//01",
+            "headlineLines": [
+                  {
+                        "text": "AUSTRALIAN",
+                        "isHighlight": false
+                  },
+                  {
+                        "text": "WOMAN GIVES",
+                        "isHighlight": true
+                  },
+                  {
+                        "text": "HYDERABAD",
+                        "isHighlight": false
+                  }
+            ],
+            "summary": "Australian Woman Gives Hyderabad Metro 10/10 After First Ride In India",
+            "points": [
+                  "Australian Woman Gives Hyderabad Metro 10/10 After First Ride In India",
+                  "Australian Woman Gives Hyderabad Metro 10/10 After First Ride In India&nbsp;&nbsp;NDTV",
+                  "Verified dispatch reported by NDTV."
+            ],
+            "source": "NDTV",
+            "vectorType": "metro_guideway"
+      },
+      {
+            "id": "hyd-news-02",
             "category": "CAPITAL & MARKETS",
-            "code": "CAPITAL//01",
+            "code": "CAPITAL//02",
             "headlineLines": [
                   {
                         "text": "CENTRE'S",
@@ -322,9 +349,36 @@
             "vectorType": "currency_sanction"
       },
       {
-            "id": "hyd-news-02",
+            "id": "hyd-news-03",
+            "category": "CAPITAL & MARKETS",
+            "code": "CAPITAL//03",
+            "headlineLines": [
+                  {
+                        "text": "TELANGANA",
+                        "isHighlight": false
+                  },
+                  {
+                        "text": "LOSES \u20b950",
+                        "isHighlight": true
+                  },
+                  {
+                        "text": "CRORE TO",
+                        "isHighlight": false
+                  }
+            ],
+            "summary": "Telangana loses \u20b950 crore to \u2018digital arrest\u2019 scams in 10 months even as",
+            "points": [
+                  "Telangana loses \u20b950 crore to \u2018digital arrest\u2019 scams in 10 months even as monthly complaints",
+                  "Telangana loses \u20b950 crore to \u2018digital arrest\u2019 scams in 10 months even as monthly complaints",
+                  "Verified dispatch reported by THE TIMES OF INDIA."
+            ],
+            "source": "THE TIMES OF INDIA",
+            "vectorType": "metro"
+      },
+      {
+            "id": "hyd-news-04",
             "category": "URBAN CONNECTIVITY",
-            "code": "TRANSIT//02",
+            "code": "TRANSIT//04",
             "headlineLines": [
                   {
                         "text": "NO INFORMATION",
@@ -346,60 +400,6 @@
                   "Verified dispatch reported by THE NEW INDIAN EXPRESS."
             ],
             "source": "THE NEW INDIAN EXPRESS",
-            "vectorType": "metro"
-      },
-      {
-            "id": "hyd-news-03",
-            "category": "URBAN DEVELOPMENT",
-            "code": "DISPATCH//03",
-            "headlineLines": [
-                  {
-                        "text": "PRAKASH PURAB",
-                        "isHighlight": false
-                  },
-                  {
-                        "text": "CELEBRATED IN",
-                        "isHighlight": true
-                  },
-                  {
-                        "text": "HYDERABAD",
-                        "isHighlight": false
-                  }
-            ],
-            "summary": "Prakash Purab celebrated in Hyderabad",
-            "points": [
-                  "Prakash Purab celebrated in Hyderabad",
-                  "Prakash Purab celebrated in Hyderabad&nbsp;&nbsp;Telangana Today",
-                  "Verified dispatch reported by TELANGANA TODAY."
-            ],
-            "source": "TELANGANA TODAY",
-            "vectorType": "tower"
-      },
-      {
-            "id": "hyd-news-04",
-            "category": "URBAN DEVELOPMENT",
-            "code": "DISPATCH//04",
-            "headlineLines": [
-                  {
-                        "text": "HYDERABAD OTS",
-                        "isHighlight": false
-                  },
-                  {
-                        "text": "ADVERTISING",
-                        "isHighlight": true
-                  },
-                  {
-                        "text": "WINS DUAL",
-                        "isHighlight": false
-                  }
-            ],
-            "summary": "Hyderabad OTS Advertising Wins Dual Recognition At Media Awards",
-            "points": [
-                  "Hyderabad OTS Advertising Wins Dual Recognition At Media Awards",
-                  "Hyderabad OTS Advertising Wins Dual Recognition At Media Awards&nbsp;&nbsp;Deccan Chronicle",
-                  "Verified dispatch reported by DECCAN CHRONICLE."
-            ],
-            "source": "DECCAN CHRONICLE",
             "vectorType": "chip"
       }
 ];
@@ -772,7 +772,7 @@
               <g transform="translate(900, 26)">
                 <circle cx="-230" cy="-7" r="7" fill="${greenLive}"/>
                 <text x="-212" y="0" font-family="'JetBrains Mono', monospace" font-size="18" font-weight="800" fill="${greenLive}">LIVE TODAY</text>
-                <text x="-95" y="0" font-family="'JetBrains Mono', monospace" font-size="18" font-weight="700" fill="${mutedColor}">• 24 NOV 2026</text>
+                <text x="-95" y="0" font-family="'JetBrains Mono', monospace" font-size="18" font-weight="700" fill="${mutedColor}">• 25 NOV 2026</text>
               </g>
             </g>
             <line x1="90" y1="80" x2="990" y2="80" stroke="${hairlineColor}" stroke-width="1.5"/>
@@ -848,7 +848,7 @@
               <g transform="translate(900, 26)">
                 <circle cx="-230" cy="-7" r="7" fill="${greenLive}"/>
                 <text x="-212" y="0" font-family="'JetBrains Mono', monospace" font-size="18" font-weight="800" fill="${greenLive}">LIVE TODAY</text>
-                <text x="-95" y="0" font-family="'JetBrains Mono', monospace" font-size="18" font-weight="700" fill="${mutedColor}">• 24 NOV 2026</text>
+                <text x="-95" y="0" font-family="'JetBrains Mono', monospace" font-size="18" font-weight="700" fill="${mutedColor}">• 25 NOV 2026</text>
               </g>
             </g>
             <line x1="90" y1="80" x2="990" y2="80" stroke="${hairlineColor}" stroke-width="1.5"/>
@@ -937,7 +937,7 @@
               <g transform="translate(900, 26)">
                 <circle cx="-230" cy="-7" r="7" fill="${greenLive}"/>
                 <text x="-212" y="0" font-family="'JetBrains Mono', monospace" font-size="18" font-weight="800" fill="${greenLive}">LIVE TODAY</text>
-                <text x="-95" y="0" font-family="'JetBrains Mono', monospace" font-size="18" font-weight="700" fill="${mutedColor}">• 24 NOV 2026</text>
+                <text x="-95" y="0" font-family="'JetBrains Mono', monospace" font-size="18" font-weight="700" fill="${mutedColor}">• 25 NOV 2026</text>
               </g>
             </g>
             <line x1="90" y1="80" x2="990" y2="80" stroke="${hairlineColor}" stroke-width="1.5"/>
